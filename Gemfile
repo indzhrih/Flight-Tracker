@@ -29,18 +29,44 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
-# [https://github.com/bkeepers/dotenv]
-gem 'dotenv-rails'
-
 group :development, :test do
+  # [https://github.com/bkeepers/dotenv]
+  gem "dotenv-rails"
+
+  # [https://github.com/rspec/rspec-rails/tree/6-1-maintenance]
+  gem "rspec-rails", "~> 6.1.0"
+
+  # [https://rubygems.org/gems/factory_bot_rails]
+  gem "factory_bot_rails", "~> 6.4", ">= 6.4.3"
+
+  # [https://rubygems.org/gems/faker/versions/3.4.2]
+  gem "faker", "~> 3.4", ">= 3.4.2"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  # rubocop [https://github.com/rubocop/rubocop]
+  gem "rubocop", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
   gem "rubocop-rails-omakase", require: false
+  gem "rubocop-rspec", require: false
 end
 
+group :test do
+  # [https://rubygems.org/gems/database_cleaner/versions/2.0.2]
+  gem "database_cleaner", "~> 2.0", ">= 2.0.2"
 
+  # [https://github.com/thoughtbot/shoulda-matchers]
+  gem "shoulda-matchers", "~> 6.0"
+
+  # [https://rubygems.org/gems/simplecov]
+  gem "simplecov", "~> 0.22.0"
+
+  # [https://github.com/rails/rails-controller-testing]
+  gem "rails-controller-testing"
+end
