@@ -2,10 +2,11 @@
 
 FactoryBot.define do
   factory :leg do
-    flight_id { 1 }
-    number { 1 }
-    departure_airport_id { 'MyString' }
-    arrival_airport_id { 'MyString' }
-    distance { 1 }
+    number{ Faker::Number.between(from: 1, to: 10) }
+    distance { Faker::Number.between(from: 1, to: 1000) }
+
+    association :flight
+    departure_airport { association :airport }
+    arrival_airport { association :airport }
   end
 end

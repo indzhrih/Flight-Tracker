@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_22_171006) do
 
   create_table "flights", force: :cascade do |t|
     t.string "flight_number", limit: 7, null: false
-    t.string "status", null: false
+    t.string "status", default: "OK", null: false
     t.integer "distance"
     t.string "error_message"
     t.datetime "fetched_at", precision: nil

@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :airport do
-    iata { 'MyString' }
-    city { 'MyString' }
-    country { 'MyString' }
-    latitude { '9.99' }
-    longitude { '9.99' }
+    iata { Faker::Alphanumeric.alpha(number: 3).upcase }
+    city { Faker::Address.city }
+    country { Faker::Address.country }
+    latitude { Faker::Address.latitude }
+    longitude { Faker::Address.longitude }
   end
 end
