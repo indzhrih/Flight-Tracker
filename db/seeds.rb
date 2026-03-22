@@ -38,5 +38,5 @@ end
     end
   end
 
-  flight.distance = legs.sum { |leg| leg.distance }
+  flight.distance = legs.sum(&:distance)
 end
