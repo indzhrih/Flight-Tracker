@@ -35,7 +35,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_22_171006) do
   end
 
   create_table "legs", force: :cascade do |t|
-    t.integer "number", null: false
     t.integer "distance"
     t.bigint "flight_id", null: false
     t.string "departure_airport_id", null: false
@@ -44,7 +43,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_22_171006) do
     t.datetime "updated_at", null: false
     t.index ["arrival_airport_id"], name: "index_legs_on_arrival_airport_id"
     t.index ["departure_airport_id"], name: "index_legs_on_departure_airport_id"
-    t.index ["flight_id", "number"], name: "index_legs_on_flight_id_and_number", unique: true
     t.index ["flight_id"], name: "index_legs_on_flight_id"
   end
 

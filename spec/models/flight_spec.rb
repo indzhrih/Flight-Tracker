@@ -16,8 +16,8 @@ RSpec.describe Flight, type: :model do
       expect(flight.flight_number).not_to be_nil
     end
 
-    it "sets status to 'ok' by default" do
-      expect(flight.status).to eq('ok')
+    it "sets status to 'OK' by default" do
+      expect(flight.status).to eq('OK')
     end
 
     it 'sets distance not to nil by default' do

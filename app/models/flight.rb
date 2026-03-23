@@ -3,7 +3,7 @@
 class Flight < ApplicationRecord
   has_many :legs, dependent: :destroy
 
-  enum :status, { ok: 'OK', fail: 'FAIL' }
+  enum :status, { OK: 'OK', FAIL: 'FAIL' }
 
   validates :flight_number, uniqueness: true, length: { in: 6..7 }
   validates :flight_number, :status, presence: true
