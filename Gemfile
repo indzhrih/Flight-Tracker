@@ -33,6 +33,7 @@ gem 'bootsnap', require: false
 
 # [https://github.com/lostisland/faraday]
 gem 'faraday'
+gem 'faraday-follow_redirects'
 gem 'faraday-net_http'
 
 group :development, :test do

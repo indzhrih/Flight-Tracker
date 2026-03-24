@@ -5,7 +5,7 @@ module FlightSearch
     class MakeDatabaseJson < BaseCommand
       class << self
         def execute(flight_number:)
-          flight = Flight.find_by(flight_number: flight_number)
+          flight = Flight.includes(legs: %i[departure_airport arrival_airport]).find_by(flight_number: flight_number)
           return nil if flight.nil?
 
           {
@@ -36,8 +36,8 @@ module FlightSearch
             iata: airport.iata,
             city: airport.city,
             country: airport.country,
-            latitude: airport.latitude,
-            longitude: airport.longitude
+            latitude: airport.latitude.to_f,
+            longitude: airport.longitude.to_f
           }
         end
       end

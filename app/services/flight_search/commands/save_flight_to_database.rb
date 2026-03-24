@@ -24,7 +24,9 @@ module FlightSearch
         end
 
         def create_legs(flight:, route_data:)
-          Array(route_data).each do |leg_data|
+          legs = route_data.is_a?(Array) ? route_data : [route_data]
+
+          legs.each do |leg_data|
             flight.legs.create!(
               departure_airport: find_or_create_airport(airport_data: leg_data[:departure]),
               arrival_airport: find_or_create_airport(airport_data: leg_data[:arrival]),

@@ -5,34 +5,35 @@ module FlightSearch
     class AdsbdbResponseAdapter
       class << self
         def call(response:)
-          return response[:response] unless response[:response].is_a?(Hash)
-          return response[:response] unless response[:status] == 200
+          return response.body['response'] unless response.status == 200
+          return response.body['response'] if response.body['response'].nil?
+          return response.body['response'] unless response.body['response'].is_a?(Hash)
 
-          build_success_json(body: response)
+          build_success_json(body: response.body)
         end
 
         private
 
         def build_success_json(body:)
-          route = build_route(flight_route: body.dig(:response, 'flightroute'))
+          route = build_route(flight_route: body.dig('response', 'flightroute'))
 
           {
             route: route,
             status: 'OK',
-            distance: count_distance(route: route),
+            distance: count_distance(route: route).to_s,
             error_message: nil
           }
         end
 
         def build_route(flight_route:)
-          legs = build_route_legs(origin: build_airport(flight_route['origin']),
-                                  destination: build_airport(flight_route['destination']),
-                                  midpoint: build_airport(flight_route['midpoint']))
+          legs = build_route_legs(origin: build_airport(airport: flight_route['origin']),
+                                  destination: build_airport(airport: flight_route['destination']),
+                                  midpoint: build_airport(airport: flight_route['midpoint']))
 
           legs.size == 1 ? legs.first : legs
         end
 
-        def build_route_legs(origin:, destination:, midpoint:)
+        def build_route_legs(origin:, destination:, midpoint: nil)
           if midpoint.present?
             [
               build_leg(departure: origin, arrival: midpoint, multi_leg: true),
@@ -50,20 +51,22 @@ module FlightSearch
           leg_hash
         end
 
-        def build_airport(airport)
+        def build_airport(airport:)
+          return nil if airport.blank?
+
           {
             iata: airport['iata_code'],
             city: airport['municipality'],
             country: airport['country_name'],
-            latitude: airport['latitude'],
-            longitude: airport['longitude']
+            latitude: airport['latitude'].to_f.round(2),
+            longitude: airport['longitude'].to_f.round(2)
           }
         end
 
         def count_distance(route:)
-          return route[:distance] if route.is_a?(Hash)
+          return route.sum { |leg| leg[:distance] } unless route.is_a?(Hash)
 
-          route.sum { |leg| leg[:distance] }
+          DistanceCalculator.call(from: route[:departure], to: route[:arrival])
         end
       end
     end

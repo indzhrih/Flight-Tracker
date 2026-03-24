@@ -2,7 +2,7 @@
 
 module FlightSearch
   class FlightNumberNormalizer
-    FLIGHT_NUMBER_REGEX = /\A([A-Z0-9]{2,3}?)(\d{1,4})\z/
+    FLIGHT_NUMBER_REGEX = /\A([A-Z]{2,3})(\d{1,4})\z/
 
     class << self
       def call(flight_number:)
