@@ -5,6 +5,7 @@ require 'simplecov'
 SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
 SimpleCov.start 'rails' do
   enable_coverage_for_eval
+  add_group 'Services', 'app/services'
   add_filter(%r{^/spec/})
   add_filter('/app/channels/')
   add_filter('/app/jobs/')

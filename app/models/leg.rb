@@ -6,5 +6,4 @@ class Leg < ApplicationRecord
   belongs_to :arrival_airport, class_name: 'Airport'
 
   validates :distance, numericality: { greater_than: 0 }, allow_nil: true
-  validates :number, presence: true, uniqueness: { scope: :flight_id }, numericality: { greater_than: 0 }
 end

@@ -3,7 +3,6 @@
 class CreateLegs < ActiveRecord::Migration[7.2]
   def change
     create_table :legs do |t|
-      t.integer :number, null: false
       t.integer :distance
       t.references :flight, null: false, foreign_key: true
       t.references :departure_airport, null: false, type: :string,
@@ -13,7 +12,5 @@ class CreateLegs < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-
-    add_index :legs, %i[flight_id number], unique: true
   end
 end

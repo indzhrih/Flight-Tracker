@@ -12,4 +12,14 @@ FactoryBot.define do
     status { 'FAIL' }
     error_message { Faker::Lorem.sentence }
   end
+
+  trait :with_multi_leg do
+    after(:create) do |flight|
+      fra = create(:airport, iata: 'FRA')
+      muc = create(:airport, iata: 'MUC')
+      vie = create(:airport, iata: 'VIE')
+      create(:leg, flight: flight, departure_airport: fra, arrival_airport: muc)
+      create(:leg, flight: flight, departure_airport: muc, arrival_airport: vie)
+    end
+  end
 end
