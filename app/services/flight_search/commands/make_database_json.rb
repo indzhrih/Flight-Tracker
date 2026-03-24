@@ -6,6 +6,8 @@ module FlightSearch
       class << self
         def execute(flight_number:)
           flight = Flight.find_by(flight_number: flight_number)
+          return nil if flight.nil?
+
           {
             route: build_route(legs: flight.legs),
             status: flight.status,
@@ -17,14 +19,16 @@ module FlightSearch
         private
 
         def build_route(legs:)
-          routes = legs.map do |leg|
-            {
+          route_data = legs.map do |leg|
+            segment = {
               departure: build_airport(airport: leg.departure_airport),
               arrival: build_airport(airport: leg.arrival_airport)
             }
+            segment[:distance] = leg.distance.to_s if legs.size > 1
+            segment
           end
 
-          legs.size == 1 ? routes.first : routes
+          legs.size == 1 ? route_data.first : route_data
         end
 
         def build_airport(airport:)

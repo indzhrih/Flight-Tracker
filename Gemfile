@@ -31,6 +31,10 @@ gem 'bootsnap', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+# [https://github.com/lostisland/faraday]
+gem 'faraday'
+gem 'faraday-net_http'
+
 group :development, :test do
   # [https://github.com/bkeepers/dotenv]
   gem 'dotenv-rails'

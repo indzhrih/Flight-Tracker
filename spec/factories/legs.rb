@@ -2,7 +2,6 @@
 
 FactoryBot.define do
   factory :leg do
-    number { Faker::Number.between(from: 1, to: 10) }
     distance { Faker::Number.between(from: 1, to: 1000) }
 
     association :flight
