@@ -3,9 +3,9 @@
 class Flight < ApplicationRecord
   has_many :legs, dependent: :destroy
 
-  enum :status, { OK: 'OK', FAIL: 'FAIL' }
+  enum :status, { ok: 'OK', fail: 'FAIL' }
 
-  validates :flight_number, uniqueness: true, length: { in: 6..7 }
+  validates :flight_number, uniqueness: true, length: { in: 6..7 }, format: { with: /\A([A-Z]{2,3})(\d{1,4})\z/ }
   validates :flight_number, :status, presence: true
   validates :distance, numericality: { greater_than: 0 }, allow_nil: true
 end
