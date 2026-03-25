@@ -10,7 +10,7 @@ module FlightSearch
 
           {
             route: build_route(legs: flight.legs),
-            status: flight.status,
+            status: flight.status.upcase,
             distance: flight.distance.to_s,
             error_message: nil
           }

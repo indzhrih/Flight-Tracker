@@ -16,8 +16,8 @@ RSpec.describe Flight, type: :model do
       expect(flight.flight_number).not_to be_nil
     end
 
-    it "sets status to 'OK' by default" do
-      expect(flight.status).to eq('OK')
+    it "sets status to 'ok' by default" do
+      expect(flight.status).to eq('ok')
     end
 
     it 'sets distance not to nil by default' do
@@ -36,6 +36,8 @@ RSpec.describe Flight, type: :model do
     it { is_expected.to validate_uniqueness_of(:flight_number) }
 
     it { is_expected.to validate_length_of(:flight_number).is_at_least(6).is_at_most(7) }
+
+    it { expect(flight.flight_number).to match(/\A([A-Z]{2,3})(\d{1,4})\z/) }
 
     it { is_expected.to validate_numericality_of(:distance).is_greater_than(0) }
   end
