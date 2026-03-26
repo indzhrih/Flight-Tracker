@@ -75,7 +75,7 @@ Example:
 ```
 curl http://localhost:3000/api/v1/flight/LH1234
 ```
-Response:
+**One-leg Response:**
 
 ```
 {
@@ -101,7 +101,53 @@ Response:
 }
 ```
 
-Fail response example:
+**Multi-leg response example:**
+
+```
+{
+  "route": [
+    {
+      "departure": {
+        "iata": "HEL",
+        "city": "Helsinki",
+        "country": "Finland",
+        "latitude": 60.32,
+        "longitude": 24.96
+      },
+      "arrival": {
+        "iata": "YHZ",
+        "city": "Halifax",
+        "country": "Canada",
+        "latitude": 44.88,
+        "longitude": -63.51
+      },
+      "distance": "5727"
+    },
+    {
+      "departure": {
+        "iata": "YHZ",
+        "city": "Halifax",
+        "country": "Canada",
+        "latitude": 44.88,
+        "longitude": -63.51
+      },
+      "arrival": {
+        "iata": "PTY",
+        "city": "Tocumen",
+        "country": "Panama",
+        "latitude": 9.07,
+        "longitude": -79.38
+      },
+      "distance": "4264"
+    }
+  ],
+  "status": "OK",
+  "distance": "9991",
+  "error_message": null
+}
+```
+
+**Fail response example:**
 
 ```
 {
