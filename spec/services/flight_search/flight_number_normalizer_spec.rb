@@ -39,6 +39,22 @@ module FlightSearch
         it 'normalizes "SU0000" to "SU0000"' do
           expect(described_class.call(flight_number: 'SU0000')).to eq('SU0000')
         end
+
+        it 'normalizes "1A1234" to "1A1234"' do
+          expect(described_class.call(flight_number: '1A1234')).to eq('1A1234')
+        end
+
+        it 'normalizes "1a12" to "1A0012"' do
+          expect(described_class.call(flight_number: '1a12')).to eq('1A0012')
+        end
+
+        it 'normalizes "A1B12" to "A1B0012"' do
+          expect(described_class.call(flight_number: 'A1B12')).to eq('A1B0012')
+        end
+
+        it 'normalizes "1A12345" to "1A12345"' do
+          expect(described_class.call(flight_number: '1A12345')).to eq('1A12345')
+        end
       end
 
       context 'when flight_number is incorrect' do
@@ -54,16 +70,8 @@ module FlightSearch
           expect(described_class.call(flight_number: 'SU')).to be_nil
         end
 
-        it 'returns nil for "SU12345"' do
-          expect(described_class.call(flight_number: 'SU12345')).to be_nil
-        end
-
         it 'returns nil for "SU123A"' do
           expect(described_class.call(flight_number: 'SU123A')).to be_nil
-        end
-
-        it 'returns nil for "S1234"' do
-          expect(described_class.call(flight_number: 'S1234')).to be_nil
         end
 
         it 'returns nil for "SU1234A"' do
