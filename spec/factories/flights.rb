@@ -13,6 +13,14 @@ FactoryBot.define do
     error_message { Faker::Lorem.sentence }
   end
 
+  trait :with_single_leg do
+    after(:create) do |flight|
+      fra = create(:airport, iata: 'FRA')
+      vie = create(:airport, iata: 'VIE')
+      create(:leg, flight: flight, departure_airport: fra, arrival_airport: vie)
+    end
+  end
+
   trait :with_multi_leg do
     after(:create) do |flight|
       fra = create(:airport, iata: 'FRA')

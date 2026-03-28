@@ -2,7 +2,7 @@
 
 module FlightSearch
   class FlightNumberNormalizer
-    FLIGHT_NUMBER_REGEX = /\A([A-Z]{2,3})(\d{1,4})\z/
+    FLIGHT_NUMBER_REGEX = /\A([A-Z0-9]{2,3})(\d{1,4})\z/
 
     class << self
       def call(flight_number:)
@@ -19,8 +19,17 @@ module FlightSearch
       end
 
       def normalize_valid_number(flight_number:)
-        iata, number = flight_number.scan(FLIGHT_NUMBER_REGEX).first
+        iata, number = extract_parts(flight_number: flight_number)
         iata + number.rjust(4, '0')
+      end
+
+      def extract_parts(flight_number:)
+        [2, 3].each do |iata_length|
+          iata = flight_number[0, iata_length]
+          number = flight_number[iata_length..]
+
+          return [iata, number] if iata&.match?(/\A[A-Z0-9]{2,3}\z/) && number&.match?(/\A\d{1,4}\z/)
+        end
       end
     end
   end
